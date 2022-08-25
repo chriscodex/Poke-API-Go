@@ -6,3 +6,8 @@ type PokeApiPokemonResponse struct {
 	PokemonType []PokemonType `json:"types"`
 	Stats       []PokemonStat `json:"stats"`
 }
+
+type PokemonType struct {
+	Slot    int      `json:"slot"`
+	RefType BaseName `json:"type"`
+}
