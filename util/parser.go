@@ -2,6 +2,8 @@ package util
 
 import (
 	"errors"
+
+	"github.com/ChrisCodeX/Poke-API-Go/models"
 )
 
 var (
@@ -10,3 +12,14 @@ var (
 	// ErrNotFoundPokemonTypeName occurs when we found type struct but no name
 	ErrNotFoundPokemonTypeName = errors.New("pokemon type name not found")
 )
+
+func ParsePokemon(apiPokemonResponse models.PokeApiPokemonResponse) (models.Pokemon, error) {
+	if len(apiPokemonResponse.PokemonType) < 1 {
+		return models.Pokemon{}, ErrNotFoundPokemonType
+	}
+
+	if apiPokemonResponse.PokemonType[0].RefType.Name == "" {
+		return models.Pokemon{}, ErrNotFoundPokemonTypeName
+	}
+
+}
