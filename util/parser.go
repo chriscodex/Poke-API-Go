@@ -22,4 +22,17 @@ func ParsePokemon(apiPokemonResponse models.PokeApiPokemonResponse) (models.Poke
 		return models.Pokemon{}, ErrNotFoundPokemonTypeName
 	}
 
+	pokemonType := apiPokemonResponse.PokemonType[0].RefType.Name
+
+	abilitiesMap := map[string]int{}
+
+	for _, stat := range apiPokemonResponse.Stats {
+		parsedAbilityName, ok := models.AllowedAbilities[stat.Stat.Name]
+		if !ok {
+			continue
+		}
+
+		abilitiesMap[parsedAbilityName] = stat.BaseStat
+	}
+
 }
