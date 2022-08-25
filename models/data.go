@@ -11,3 +11,8 @@ type PokemonType struct {
 	Slot    int      `json:"slot"`
 	RefType BaseName `json:"type"`
 }
+
+type PokemonStat struct {
+	BaseStat int      `json:"base_stat"`
+	Stat     BaseName `json:"stat"`
+}
