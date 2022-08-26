@@ -35,4 +35,12 @@ func ParsePokemon(apiPokemonResponse models.PokeApiPokemonResponse) (models.Poke
 		abilitiesMap[parsedAbilityName] = stat.BaseStat
 	}
 
+	parsedPokemon := models.Pokemon{
+		Id:        apiPokemonResponse.Id,
+		Name:      apiPokemonResponse.Name,
+		Power:     pokemonType,
+		Abilities: abilitiesMap,
+	}
+
+	return parsedPokemon, nil
 }
