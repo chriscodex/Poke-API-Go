@@ -53,4 +53,13 @@ func GetPokemonFromPokeApi(id string) (*models.PokeApiPokemonResponse, error) {
 	if err != nil {
 		return nil, err
 	}
+
+	var apiPokemonResponse models.PokeApiPokemonResponse
+
+	err = json.Unmarshal(body, &apiPokemonResponse)
+	if err != nil {
+		return nil, err
+	}
+
+	return &apiPokemonResponse, nil
 }
