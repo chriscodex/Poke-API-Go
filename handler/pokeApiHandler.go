@@ -9,6 +9,7 @@ import (
 	"net/http"
 
 	"github.com/ChrisCodeX/Poke-API-Go/models"
+	"github.com/gorilla/mux"
 )
 
 var (
@@ -62,4 +63,18 @@ func GetPokemonFromPokeApi(id string) (*models.PokeApiPokemonResponse, error) {
 	}
 
 	return &apiPokemonResponse, nil
+}
+
+func HandlerGetPokemon(w http.ResponseWriter, r *http.Request) {
+	id := mux.Vars(r)["id"]
+
+	apiPokemonResponse, err := GetPokemonFromPokeApi(id)
+
+	if errors.Is(err, ErrPokemonNotFound) {
+		respondWithJson(w, http.StatusNotFound, fmt.Sprintf("pokemon not found: %s"))
+	}
+
+	if err != nil {
+		respondWithJson(w, http.StatusInternalServerError, fmt.Sprintf("error found: %s", err.Error()))
+	}
 }
